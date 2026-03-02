@@ -167,7 +167,7 @@ export default function Home() {
       <section className="container section-block gallery-section">
         <div className="section-heading">
           <p className="eyebrow">Photo Gallery</p>
-          <h2>Gallery Preview</h2>
+          <h2>Gallery</h2>
           <p>Scroll through the gallery with the arrows.</p>
         </div>
 
