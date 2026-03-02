@@ -1,16 +1,273 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
-export default function Home(){
+const galleryImages = [
+  '/carousel/DSC06969.JPG',
+  '/carousel/DSC06979.JPG',
+  '/carousel/DSC08053.JPG',
+  '/carousel/_TJL0012.JPG',
+  '/carousel/_TJL8163.JPG',
+  '/carousel/_TJL8200.JPG',
+  '/carousel/_TJL8206.JPG',
+  '/carousel/_TJL8807.JPG',
+  '/carousel/_TJL8813.JPG',
+]
+
+const repeatedGalleryImages = [...galleryImages, ...galleryImages, ...galleryImages]
+
+const castMembers = [
+  ['Magnolia "Lia" Espinosa', 'Allyson Mendoza'],
+  ['Crisanto Espinosa', 'Gaven Manela'],
+  ['Gabriel Bernardo', 'Jacob Adriano'],
+  ['Roselle "Ro" de la Cruz', 'Hazel Jose'],
+  ['Eden\nGonzalez', 'Lovel\nCruz'],
+  ['Angel Bautista', 'Soren Hocke'],
+  ['Father Bernie', 'Javen Sebastian'],
+  ['Irene Espoinosa', 'Faith Garcia'],
+]
+
+const pastPacns = [
+  {
+    title: 'PACN 36: Soundproof',
+    yearLabel: 'PACN 36',
+    embedUrl: 'https://www.youtube.com/embed/MnOk1ERZ44o',
+  },
+  {
+    title: 'PACN 35: Stardust',
+    yearLabel: 'PACN 35',
+    embedUrl: 'https://www.youtube.com/embed/NUD2v2tcJ00',
+  },
+  {
+    title: 'PACN 34: Till The Sun Rises',
+    yearLabel: 'PACN 34',
+    embedUrl: 'https://www.youtube.com/embed/ioEx13R8NZo',
+  },
+]
+
+export default function Home() {
+  const galleryTrackRef = useRef(null)
+  const dragStateRef = useRef({
+    isDragging: false,
+    startX: 0,
+    startScrollLeft: 0,
+  })
+  const adjustingScrollRef = useRef(false)
+
+  useEffect(() => {
+    const track = galleryTrackRef.current
+    if (!track) {
+      return
+    }
+
+    const centerTrack = () => {
+      track.scrollLeft = track.scrollWidth / 3
+    }
+
+    centerTrack()
+    window.addEventListener('resize', centerTrack)
+
+    return () => window.removeEventListener('resize', centerTrack)
+  }, [])
+
+  function normalizeInfiniteScroll() {
+    const track = galleryTrackRef.current
+    if (!track || adjustingScrollRef.current) {
+      return
+    }
+
+    const sectionWidth = track.scrollWidth / 3
+
+    if (track.scrollLeft < sectionWidth) {
+      adjustingScrollRef.current = true
+      track.scrollLeft += sectionWidth
+      window.requestAnimationFrame(() => {
+        adjustingScrollRef.current = false
+      })
+    } else if (track.scrollLeft >= sectionWidth * 2) {
+      adjustingScrollRef.current = true
+      track.scrollLeft -= sectionWidth
+      window.requestAnimationFrame(() => {
+        adjustingScrollRef.current = false
+      })
+    }
+  }
+
+  function scrollGallery(direction) {
+    const track = galleryTrackRef.current
+    if (!track) {
+      return
+    }
+
+    const firstCard = track.querySelector('.gallery-card')
+    const cardWidth = firstCard instanceof HTMLElement ? firstCard.offsetWidth + 16 : 320
+
+    track.scrollBy({
+      left: direction * cardWidth,
+      behavior: 'smooth',
+    })
+
+    window.setTimeout(normalizeInfiniteScroll, 250)
+  }
+
+  function handleGalleryMouseDown(event) {
+    const track = galleryTrackRef.current
+    if (!track) {
+      return
+    }
+
+    dragStateRef.current = {
+      isDragging: true,
+      startX: event.clientX,
+      startScrollLeft: track.scrollLeft,
+    }
+  }
+
+  function handleGalleryMouseMove(event) {
+    const track = galleryTrackRef.current
+    if (!track || !dragStateRef.current.isDragging) {
+      return
+    }
+
+    event.preventDefault()
+    const delta = event.clientX - dragStateRef.current.startX
+    track.scrollLeft = dragStateRef.current.startScrollLeft - delta
+    normalizeInfiniteScroll()
+  }
+
+  function handleGalleryMouseUp() {
+    if (!dragStateRef.current.isDragging) {
+      return
+    }
+
+    dragStateRef.current.isDragging = false
+    normalizeInfiniteScroll()
+  }
+
   return (
-    <section className="hero container">
-      <div className="hero-text">
-        <h1>UCR PACN</h1>
-        <p>Promoting performing arts and connecting communities at UC Riverside — join us for shows, workshops, and events.</p>
-        <p className="cta-row"><a className="btn" href="/tickets">Get Tickets</a> <a className="btn btn-outline" href="/about">Learn More</a></p>
-      </div>
-      <div className="hero-illustration">
-        <img src="/public/images/hero.svg" alt="Performing arts illustration" />
-      </div>
-    </section>
+    <div className="home-page">
+      <section
+        className="home-hero"
+        style={{ backgroundImage: 'url("/images/Someday%202.JPEG")' }}
+      >
+        <div className="container home-hero-inner">
+          <div className="home-hero-copy">
+            <p className="eyebrow">The official website for UCR PACN</p>
+            <p className="hero-kicker">UC Riverside&apos;s Katipunan PSO presents:</p>
+            <h1>Pilipino-American Culture Night</h1>
+            <p className="hero-note">
+              PACN 37 returns with <span>Someday</span> on April 25th.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="container logo-band" aria-label="PACN logo">
+        <img src="/images/pacn%20logo.jpg" alt="PACN logo" className="pacn-logo-image" />
+      </section>
+
+      <section className="container section-block gallery-section">
+        <div className="section-heading">
+          <p className="eyebrow">Photo Gallery</p>
+          <h2>Gallery Preview</h2>
+          <p>Scroll through the gallery with the arrows.</p>
+        </div>
+
+        <div className="gallery-carousel">
+          <button
+            type="button"
+            className="gallery-arrow"
+            onClick={() => scrollGallery(-1)}
+            aria-label="Scroll gallery left"
+          >{'<'}</button>
+
+          <div
+            className="gallery-track"
+            ref={galleryTrackRef}
+            onScroll={normalizeInfiniteScroll}
+            onMouseDown={handleGalleryMouseDown}
+            onMouseMove={handleGalleryMouseMove}
+            onMouseUp={handleGalleryMouseUp}
+            onMouseLeave={handleGalleryMouseUp}
+          >
+            {repeatedGalleryImages.map((imagePath, index) => (
+              <article key={`${imagePath}-${index}`} className="gallery-card">
+                <img
+                  src={imagePath}
+                  alt="PACN gallery"
+                  className="gallery-image"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                />
+              </article>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            className="gallery-arrow"
+            onClick={() => scrollGallery(1)}
+            aria-label="Scroll gallery right"
+          >{'>'}</button>
+        </div>
+      </section>
+
+      <section className="container section-block">
+        <div className="section-heading">
+          <p className="eyebrow">Current Production</p>
+          <h2>Cast</h2>
+        </div>
+
+        <ul className="cast-list">
+          {castMembers.map(([character, actor]) => (
+            <li key={character}>
+              <span>
+                {character.split('\n').map((part, index, parts) => (
+                  <React.Fragment key={`${character}-${part}`}>
+                    {part}
+                    {index < parts.length - 1 ? <br className="cast-desktop-break" /> : null}
+                  </React.Fragment>
+                ))}
+              </span>
+              <strong>
+                {actor.split('\n').map((part, index, parts) => (
+                  <React.Fragment key={`${actor}-${part}`}>
+                    {part}
+                    {index < parts.length - 1 ? <br className="cast-desktop-break" /> : null}
+                  </React.Fragment>
+                ))}
+              </strong>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="container section-block archive-section">
+        <div className="section-heading">
+          <p className="eyebrow">PACN Archive</p>
+          <h2>Past Productions</h2>
+        </div>
+
+        <div className="video-grid">
+          {pastPacns.map((video) => (
+            <article key={video.title} className="video-card">
+              <div className="video-frame">
+                <iframe
+                  src={video.embedUrl}
+                  title={video.title}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+              <div className="video-copy">
+                <p>{video.yearLabel}</p>
+                <h3>{video.title}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
   )
 }
