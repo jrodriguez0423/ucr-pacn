@@ -61,7 +61,8 @@ const photoPositionById = {
 function getPhotoSrc(id){
   const fileName = photoById[id]
   if (!fileName) return null
-  return `${import.meta.env.BASE_URL}board-pics/${encodeURIComponent(fileName)}`
+  const optimizedName = `${fileName.replace(/\.[^.]+$/, '')}.webp`
+  return `${import.meta.env.BASE_URL}board-pics-optimized/${encodeURIComponent(optimizedName)}`
 }
 
 function getPhotoStyle(id){
@@ -390,7 +391,7 @@ export default function About(){
                   <article key={member.id} className="profile-card">
                     <div className="profile-photo" aria-hidden="true">
                       {photoSrc
-                        ? <img src={photoSrc} alt={`${member.name} headshot`} loading="lazy" style={getPhotoStyle(member.id)} />
+                        ? <img src={photoSrc} alt={`${member.name} headshot`} loading="lazy" decoding="async" fetchPriority="low" style={getPhotoStyle(member.id)} />
                         : getInitials(member.name)}
                     </div>
                     <h4>{member.name}</h4>
@@ -416,7 +417,7 @@ export default function About(){
               <article key={pactern.id} className="profile-card">
                 <div className="profile-photo" aria-hidden="true">
                   {photoSrc
-                    ? <img src={photoSrc} alt={`${pactern.name} headshot`} loading="lazy" style={getPhotoStyle(pactern.id)} />
+                    ? <img src={photoSrc} alt={`${pactern.name} headshot`} loading="lazy" decoding="async" fetchPriority="low" style={getPhotoStyle(pactern.id)} />
                     : getInitials(pactern.name)}
                 </div>
                 <h4>{pactern.name}</h4>

@@ -8,7 +8,7 @@ export default function Header(){
     <header className="site-header">
       <div className="container">
         <Link className="logo" to="/" aria-label="UCR PACN home">
-          <img src="/images/pacn%20logo.jpg" alt="PACN logo" className="nav-logo-image" />
+          <img src="/images/pacn%20logo.jpg" alt="PACN logo" className="nav-logo-image" decoding="async" />
         </Link>
         <nav>
           <Link to="/">Home</Link>

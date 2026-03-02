@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from 'react'
 
 const galleryImages = [
-  '/carousel/DSC06969.JPG',
-  '/carousel/DSC06979.JPG',
-  '/carousel/DSC08053.JPG',
-  '/carousel/_TJL0012.JPG',
-  '/carousel/_TJL8163.JPG',
-  '/carousel/_TJL8200.JPG',
-  '/carousel/_TJL8206.JPG',
-  '/carousel/_TJL8807.JPG',
-  '/carousel/_TJL8813.JPG',
+  '/carousel-optimized/DSC06969.webp',
+  '/carousel-optimized/DSC06979.webp',
+  '/carousel-optimized/DSC08053.webp',
+  '/carousel-optimized/_TJL0012.webp',
+  '/carousel-optimized/_TJL8163.webp',
+  '/carousel-optimized/_TJL8200.webp',
+  '/carousel-optimized/_TJL8206.webp',
+  '/carousel-optimized/_TJL8807.webp',
+  '/carousel-optimized/_TJL8813.webp',
 ]
 
 const repeatedGalleryImages = [...galleryImages, ...galleryImages, ...galleryImages]
@@ -146,7 +146,7 @@ export default function Home() {
     <div className="home-page">
       <section
         className="home-hero"
-        style={{ backgroundImage: 'url("/images/Someday%202.JPEG")' }}
+        style={{ backgroundImage: 'url("/images/Someday-hero.webp")' }}
       >
         <div className="container home-hero-inner">
           <div className="home-hero-copy">
@@ -196,6 +196,7 @@ export default function Home() {
                   className="gallery-image"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                   draggable="false"
                 />
               </article>
