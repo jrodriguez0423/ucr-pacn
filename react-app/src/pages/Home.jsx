@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const galleryImages = [
   '/carousel-optimized/DSC06969.webp',
@@ -11,8 +11,6 @@ const galleryImages = [
   '/carousel-optimized/_TJL8807.webp',
   '/carousel-optimized/_TJL8813.webp',
 ]
-
-const repeatedGalleryImages = [...galleryImages, ...galleryImages, ...galleryImages]
 
 const castMembers = [
   ['Magnolia "Lia" Espinosa', 'Allyson Mendoza'],
@@ -45,12 +43,13 @@ const pastPacns = [
 
 export default function Home() {
   const galleryTrackRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
   const dragStateRef = useRef({
     isDragging: false,
     startX: 0,
     startScrollLeft: 0,
   })
-  const adjustingScrollRef = useRef(false)
 
   useEffect(() => {
     const track = galleryTrackRef.current
@@ -58,38 +57,23 @@ export default function Home() {
       return
     }
 
-    const centerTrack = () => {
-      track.scrollLeft = track.scrollWidth / 3
+    const updateGalleryArrows = () => {
+      const maxScrollLeft = track.scrollWidth - track.clientWidth
+      const threshold = 4
+
+      setCanScrollLeft(track.scrollLeft > threshold)
+      setCanScrollRight(track.scrollLeft < maxScrollLeft - threshold)
     }
 
-    centerTrack()
-    window.addEventListener('resize', centerTrack)
+    updateGalleryArrows()
+    track.addEventListener('scroll', updateGalleryArrows, { passive: true })
+    window.addEventListener('resize', updateGalleryArrows)
 
-    return () => window.removeEventListener('resize', centerTrack)
+    return () => {
+      track.removeEventListener('scroll', updateGalleryArrows)
+      window.removeEventListener('resize', updateGalleryArrows)
+    }
   }, [])
-
-  function normalizeInfiniteScroll() {
-    const track = galleryTrackRef.current
-    if (!track || adjustingScrollRef.current) {
-      return
-    }
-
-    const sectionWidth = track.scrollWidth / 3
-
-    if (track.scrollLeft < sectionWidth) {
-      adjustingScrollRef.current = true
-      track.scrollLeft += sectionWidth
-      window.requestAnimationFrame(() => {
-        adjustingScrollRef.current = false
-      })
-    } else if (track.scrollLeft >= sectionWidth * 2) {
-      adjustingScrollRef.current = true
-      track.scrollLeft -= sectionWidth
-      window.requestAnimationFrame(() => {
-        adjustingScrollRef.current = false
-      })
-    }
-  }
 
   function scrollGallery(direction) {
     const track = galleryTrackRef.current
@@ -104,8 +88,6 @@ export default function Home() {
       left: direction * cardWidth,
       behavior: 'smooth',
     })
-
-    window.setTimeout(normalizeInfiniteScroll, 250)
   }
 
   function handleGalleryMouseDown(event) {
@@ -130,7 +112,6 @@ export default function Home() {
     event.preventDefault()
     const delta = event.clientX - dragStateRef.current.startX
     track.scrollLeft = dragStateRef.current.startScrollLeft - delta
-    normalizeInfiniteScroll()
   }
 
   function handleGalleryMouseUp() {
@@ -139,7 +120,6 @@ export default function Home() {
     }
 
     dragStateRef.current.isDragging = false
-    normalizeInfiniteScroll()
   }
 
   return (
@@ -168,28 +148,31 @@ export default function Home() {
         <div className="section-heading">
           <p className="eyebrow">Photo Gallery</p>
           <h2>Gallery</h2>
-          <p>Scroll through the gallery with the arrows.</p>
+          <p>Scroll through the gallery with the arrows or by dragging.</p>
         </div>
 
         <div className="gallery-carousel">
-          <button
-            type="button"
-            className="gallery-arrow"
-            onClick={() => scrollGallery(-1)}
-            aria-label="Scroll gallery left"
-          >{'<'}</button>
+          {canScrollLeft ? (
+            <button
+              type="button"
+              className="gallery-arrow"
+              onClick={() => scrollGallery(-1)}
+              aria-label="Scroll gallery left"
+            >{'<'}</button>
+          ) : (
+            <div className="gallery-arrow-spacer" aria-hidden="true" />
+          )}
 
           <div
             className="gallery-track"
             ref={galleryTrackRef}
-            onScroll={normalizeInfiniteScroll}
             onMouseDown={handleGalleryMouseDown}
             onMouseMove={handleGalleryMouseMove}
             onMouseUp={handleGalleryMouseUp}
             onMouseLeave={handleGalleryMouseUp}
           >
-            {repeatedGalleryImages.map((imagePath, index) => (
-              <article key={`${imagePath}-${index}`} className="gallery-card">
+            {galleryImages.map((imagePath) => (
+              <article key={imagePath} className="gallery-card">
                 <img
                   src={imagePath}
                   alt="PACN gallery"
@@ -203,12 +186,16 @@ export default function Home() {
             ))}
           </div>
 
-          <button
-            type="button"
-            className="gallery-arrow"
-            onClick={() => scrollGallery(1)}
-            aria-label="Scroll gallery right"
-          >{'>'}</button>
+          {canScrollRight ? (
+            <button
+              type="button"
+              className="gallery-arrow"
+              onClick={() => scrollGallery(1)}
+              aria-label="Scroll gallery right"
+            >{'>'}</button>
+          ) : (
+            <div className="gallery-arrow-spacer" aria-hidden="true" />
+          )}
         </div>
       </section>
 

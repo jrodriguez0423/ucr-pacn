@@ -438,6 +438,11 @@ a:hover{color:var(--accent-dark)}
   transition:transform .18s ease, background .18s ease;
 }
 
+.gallery-arrow-spacer{
+  width:48px;
+  height:48px;
+}
+
 .gallery-arrow:hover{
   transform:translateY(-1px);
   background:var(--surface-soft);
