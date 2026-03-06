@@ -31,8 +31,8 @@ export default function About(){
         <div className="play-info-grid" aria-label="PACN 37 show information">
           <article className="play-info-card">
             <h4>PACN 37 Show Days &amp; Time</h4>
-            <p>Saturday, April 25, 2026 at 6 PM</p>
-            <p>Doors open 30 minutes before show.</p>
+            <p>Saturday, April 25, 2026 at 7-8 PM</p>
+            <p>Doors open at 6 PM.</p>
           </article>
           <article className="play-info-card">
             <h4>Tickets</h4>

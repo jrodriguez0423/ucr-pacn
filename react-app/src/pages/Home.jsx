@@ -50,10 +50,7 @@ export default function Home() {
   const dragStateRef = useRef({
     isDragging: false,
     startX: 0,
-    startY: 0,
     startScrollLeft: 0,
-    axisLock: null,
-    pointerId: null,
   })
 
   useEffect(() => {
@@ -95,75 +92,39 @@ export default function Home() {
     })
   }
 
-  function handleGalleryPointerDown(event) {
+  function handleGalleryMouseDown(event) {
     const track = galleryTrackRef.current
     if (!track) {
       return
     }
 
-    if (typeof track.setPointerCapture === 'function') {
-      track.setPointerCapture(event.pointerId)
-    }
-
     dragStateRef.current = {
       isDragging: true,
       startX: event.clientX,
-      startY: event.clientY,
       startScrollLeft: track.scrollLeft,
-      axisLock: null,
-      pointerId: event.pointerId,
     }
   }
 
-  function handleGalleryPointerMove(event) {
+  function handleGalleryMouseMove(event) {
     const track = galleryTrackRef.current
     if (!track || !dragStateRef.current.isDragging) {
       return
     }
 
-    const deltaX = event.clientX - dragStateRef.current.startX
-    const deltaY = event.clientY - dragStateRef.current.startY
-    const lockThreshold = 8
-
-    if (!dragStateRef.current.axisLock) {
-      if (Math.abs(deltaX) < lockThreshold && Math.abs(deltaY) < lockThreshold) {
-        return
-      }
-
-      dragStateRef.current.axisLock = Math.abs(deltaX) >= Math.abs(deltaY) ? 'x' : 'y'
-    }
-
-    if (dragStateRef.current.axisLock !== 'x') {
-      return
-    }
-
     event.preventDefault()
-    track.scrollLeft = dragStateRef.current.startScrollLeft - deltaX
+    const delta = event.clientX - dragStateRef.current.startX
+    track.scrollLeft = dragStateRef.current.startScrollLeft - delta
   }
 
-  function handleGalleryPointerUp() {
-    const track = galleryTrackRef.current
-
+  function handleGalleryMouseUp() {
     if (!dragStateRef.current.isDragging) {
       return
-    }
-
-    if (
-      track
-      && typeof track.releasePointerCapture === 'function'
-      && dragStateRef.current.pointerId !== null
-      && track.hasPointerCapture(dragStateRef.current.pointerId)
-    ) {
-      track.releasePointerCapture(dragStateRef.current.pointerId)
     }
 
     dragStateRef.current = {
       isDragging: false,
       startX: 0,
-      startY: 0,
       startScrollLeft: 0,
-      axisLock: null,
-      pointerId: null,
     }
   }
 
@@ -221,11 +182,10 @@ export default function Home() {
           <div
             className="gallery-track"
             ref={galleryTrackRef}
-            onPointerDown={handleGalleryPointerDown}
-            onPointerMove={handleGalleryPointerMove}
-            onPointerUp={handleGalleryPointerUp}
-            onPointerCancel={handleGalleryPointerUp}
-            onPointerLeave={handleGalleryPointerUp}
+            onMouseDown={handleGalleryMouseDown}
+            onMouseMove={handleGalleryMouseMove}
+            onMouseUp={handleGalleryMouseUp}
+            onMouseLeave={handleGalleryMouseUp}
           >
             {galleryImages.map((imagePath) => (
               <article key={imagePath} className="gallery-card">

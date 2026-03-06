@@ -36,6 +36,7 @@ const boardImages = [
   'Kat Cenabre.jpg',
   'KlarisseAllyssaDayrit.JPEG',
   'Leila Betters.jpg',
+  'Matt Dimaandal.jpeg',
   'Makaela Dato.jpeg',
   'Mira Ramos.JPG',
   'Nathan John Leopoldo.jpg',

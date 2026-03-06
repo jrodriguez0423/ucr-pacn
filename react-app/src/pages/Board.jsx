@@ -29,6 +29,7 @@ const photoById = {
   'kat-cenabre': 'Kat Cenabre.webp',
   'klarisse-dayrit': 'KlarisseAllyssaDayrit.webp',
   'leila-betters': 'Leila Betters.webp',
+  'matt-dimaandal': 'Matt Dimaandal.webp',
   'makaela-dato': 'Makaela Dato.webp',
   'mira-ramos': 'Mira Ramos.webp',
   'nathan-leopoldo': 'Nathan John Leopoldo.webp',
@@ -60,6 +61,7 @@ const photoPositionById = {
   'jason-tenazas': '40%',
   'carl-edpao': '75%',
   'karena-pascual': '80%',
+  'matt-dimaandal': '30%',
   'alyanna-dizon': '100%',
   'angelo-tagoylo': '20%'
 }
@@ -368,11 +370,7 @@ const groupedLeadership = [
   },
   {
     title: 'Financial Team',
-    ids: ['sophia-avenido', 'hannah-almero']
-  },
-  {
-    title: 'Media & Marketing Team',
-    ids: ['kat-cenabre', 'trisha-mae-rivera', 'frances-rose-javate', 'zion-abendano']
+    ids: ['sophia-avenido', 'hannah-almero', 'kat-cenabre', 'trisha-mae-rivera', 'frances-rose-javate', 'zion-abendano']
   },
   {
     title: 'Dance Coaches',

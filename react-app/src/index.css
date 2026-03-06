@@ -518,7 +518,7 @@ a:hover{color:var(--accent-dark)}
   -ms-overflow-style:none;
   cursor:grab;
   user-select:none;
-  touch-action:pan-y;
+  touch-action:pan-x;
 }
 
 .gallery-track::-webkit-scrollbar{
