@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import About from './pages/About'
+import Board from './pages/Board'
 import Tickets from './pages/Tickets'
 import Merch from './pages/Merch'
 import Contact from './pages/Contact'
@@ -18,6 +19,7 @@ export default function App(){
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/board" element={<Board />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/merch" element={<Merch />} />
           <Route path="/contact" element={<Contact />} />

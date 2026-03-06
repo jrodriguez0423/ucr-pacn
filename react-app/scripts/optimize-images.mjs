@@ -19,10 +19,12 @@ const galleryImages = [
 
 const boardImages = [
   'Alyanna Karmela Dizon.jpg',
+  'Angelo Tagoylo.JPG',
   'Bethany Cao.jpg',
   'Cadence Saniel.PNG',
   'Carl_Edpao_PACN37_Headshot.JPG',
   'Casey Frasco.jpg',
+  'Frances Javate.jpeg',
   'Gaby Alejandro.jpg',
   'Hannah Almero.JPG',
   'Jacob Stoops.JPG',

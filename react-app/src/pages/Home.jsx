@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+const TICKET_URL = 'https://tulay-web-app.vercel.app/event/bc2cda18-174c-4756-891d-1387ea6803b0'
+
 const galleryImages = [
   '/carousel-optimized/DSC06969.webp',
   '/carousel-optimized/DSC06979.webp',
@@ -17,7 +19,7 @@ const castMembers = [
   ['Crisanto Espinosa', 'Gaven Manela'],
   ['Gabriel Bernardo', 'Jacob Adriano'],
   ['Roselle "Ro" de la Cruz', 'Hazel Jose'],
-  ['Eden\nGonzalez', 'Lovel\nCruz'],
+  ['Eden\n Gonzalez', 'Lovel\n Cruz'],
   ['Angel Bautista', 'Soren Hocke'],
   ['Father Bernie', 'Javen Sebastian'],
   ['Irene Espoinosa', 'Faith Garcia'],
@@ -48,7 +50,10 @@ export default function Home() {
   const dragStateRef = useRef({
     isDragging: false,
     startX: 0,
+    startY: 0,
     startScrollLeft: 0,
+    axisLock: null,
+    pointerId: null,
   })
 
   useEffect(() => {
@@ -90,36 +95,76 @@ export default function Home() {
     })
   }
 
-  function handleGalleryMouseDown(event) {
+  function handleGalleryPointerDown(event) {
     const track = galleryTrackRef.current
     if (!track) {
       return
     }
 
+    if (typeof track.setPointerCapture === 'function') {
+      track.setPointerCapture(event.pointerId)
+    }
+
     dragStateRef.current = {
       isDragging: true,
       startX: event.clientX,
+      startY: event.clientY,
       startScrollLeft: track.scrollLeft,
+      axisLock: null,
+      pointerId: event.pointerId,
     }
   }
 
-  function handleGalleryMouseMove(event) {
+  function handleGalleryPointerMove(event) {
     const track = galleryTrackRef.current
     if (!track || !dragStateRef.current.isDragging) {
       return
     }
 
+    const deltaX = event.clientX - dragStateRef.current.startX
+    const deltaY = event.clientY - dragStateRef.current.startY
+    const lockThreshold = 8
+
+    if (!dragStateRef.current.axisLock) {
+      if (Math.abs(deltaX) < lockThreshold && Math.abs(deltaY) < lockThreshold) {
+        return
+      }
+
+      dragStateRef.current.axisLock = Math.abs(deltaX) >= Math.abs(deltaY) ? 'x' : 'y'
+    }
+
+    if (dragStateRef.current.axisLock !== 'x') {
+      return
+    }
+
     event.preventDefault()
-    const delta = event.clientX - dragStateRef.current.startX
-    track.scrollLeft = dragStateRef.current.startScrollLeft - delta
+    track.scrollLeft = dragStateRef.current.startScrollLeft - deltaX
   }
 
-  function handleGalleryMouseUp() {
+  function handleGalleryPointerUp() {
+    const track = galleryTrackRef.current
+
     if (!dragStateRef.current.isDragging) {
       return
     }
 
-    dragStateRef.current.isDragging = false
+    if (
+      track
+      && typeof track.releasePointerCapture === 'function'
+      && dragStateRef.current.pointerId !== null
+      && track.hasPointerCapture(dragStateRef.current.pointerId)
+    ) {
+      track.releasePointerCapture(dragStateRef.current.pointerId)
+    }
+
+    dragStateRef.current = {
+      isDragging: false,
+      startX: 0,
+      startY: 0,
+      startScrollLeft: 0,
+      axisLock: null,
+      pointerId: null,
+    }
   }
 
   return (
@@ -136,6 +181,16 @@ export default function Home() {
             <p className="hero-note">
               PACN 37 returns with <span>Someday</span> on April 25th.
             </p>
+            <div className="hero-actions">
+              <a
+                href={TICKET_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn hero-ticket-btn"
+              >
+                Get Tickets
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -166,10 +221,11 @@ export default function Home() {
           <div
             className="gallery-track"
             ref={galleryTrackRef}
-            onMouseDown={handleGalleryMouseDown}
-            onMouseMove={handleGalleryMouseMove}
-            onMouseUp={handleGalleryMouseUp}
-            onMouseLeave={handleGalleryMouseUp}
+            onPointerDown={handleGalleryPointerDown}
+            onPointerMove={handleGalleryPointerMove}
+            onPointerUp={handleGalleryPointerUp}
+            onPointerCancel={handleGalleryPointerUp}
+            onPointerLeave={handleGalleryPointerUp}
           >
             {galleryImages.map((imagePath) => (
               <article key={imagePath} className="gallery-card">
@@ -212,7 +268,12 @@ export default function Home() {
                 {character.split('\n').map((part, index, parts) => (
                   <React.Fragment key={`${character}-${part}`}>
                     {part}
-                    {index < parts.length - 1 ? <br className="cast-desktop-break" /> : null}
+                    {index < parts.length - 1 ? (
+                      <>
+                        <br className="cast-desktop-break" />
+                        <span className="cast-mobile-space" aria-hidden="true">{' '}</span>
+                      </>
+                    ) : null}
                   </React.Fragment>
                 ))}
               </span>
@@ -220,7 +281,12 @@ export default function Home() {
                 {actor.split('\n').map((part, index, parts) => (
                   <React.Fragment key={`${actor}-${part}`}>
                     {part}
-                    {index < parts.length - 1 ? <br className="cast-desktop-break" /> : null}
+                    {index < parts.length - 1 ? (
+                      <>
+                        <br className="cast-desktop-break" />
+                        <span className="cast-mobile-space" aria-hidden="true">{' '}</span>
+                      </>
+                    ) : null}
                   </React.Fragment>
                 ))}
               </strong>

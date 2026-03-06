@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const TICKET_URL = 'https://tulay-web-app.vercel.app/' // replace with the real ticketing URL
+const TICKET_URL = 'https://tulay-web-app.vercel.app/event/bc2cda18-174c-4756-891d-1387ea6803b0' // replace with the real ticketing URL
 
 export default function Tickets(){
   useEffect(()=>{
