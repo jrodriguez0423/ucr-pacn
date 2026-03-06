@@ -62,6 +62,7 @@ a:hover{color:var(--accent-dark)}
   align-items:center;
   justify-content:space-between;
   padding:0.85rem 1.2rem;
+  position:relative;
 }
 
 .logo{
@@ -686,7 +687,7 @@ a:hover{color:var(--accent-dark)}
   .site-header .container{
     align-items:center;
     gap:.6rem;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
     flex-direction:row;
   }
 
@@ -696,17 +697,32 @@ a:hover{color:var(--accent-dark)}
   }
 
   .site-header nav{
-    display:none;
-    width:100%;
+    display:flex;
+    position:absolute;
+    top:calc(100% + .4rem);
+    left:1.2rem;
+    right:1.2rem;
+    width:auto;
     flex-direction:column;
     gap:.35rem;
     justify-content:flex-start;
-    padding:.5rem 0 .2rem;
-    border-top:1px solid var(--line);
+    padding:.55rem;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:rgba(255,255,255,0.98);
+    box-shadow:0 14px 30px rgba(20,12,10,0.16);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px);
+    pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
   }
 
   .site-header nav.nav-open{
-    display:flex;
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    pointer-events:auto;
   }
 
   .site-header nav a{

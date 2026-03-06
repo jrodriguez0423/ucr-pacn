@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const TICKET_URL = 'https://tulay-web-app.vercel.app/event/bc2cda18-174c-4756-891d-1387ea6803b0'
+const TICKET_URL = 'https://www.tulayticketing.com/event/bc2cda18-174c-4756-891d-1387ea6803b0'
 
 const galleryImages = [
   '/carousel-optimized/DSC06969.webp',
@@ -285,3 +285,4 @@ export default function Home() {
     </div>
   )
 }
+

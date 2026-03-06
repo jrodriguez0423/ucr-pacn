@@ -7,9 +7,9 @@ export default function About(){
       <p>
         Pilipino-American Cultural Night (PACN) is one of the longest-standing and most anticipated
         annual events hosted by UC Riverside&apos;s Katipunan Pilipino Student Organization (PSO).
-        Held each Spring Quarter, PACN is a fully student-run theatrical production that brings
-        together a dedicated board and cast to create an original show celebrating Pilipinx
-        culture, identity, and storytelling.
+        PACN is a fully student-run theatrical production that brings together a dedicated board
+        and cast to create an original show celebrating Pilipinx culture, identity, and
+        storytelling.
       </p>
       <p>
         Through creative mediums such as dance, acting, and music, students explore and express
@@ -23,6 +23,12 @@ export default function About(){
         connect with their heritage. At UC Riverside, the production also acts as a platform for
         education and activism, highlighting Pilipinx history, culture, and the issues impacting
         the community today.
+      </p>
+      <p>
+        Pilipino American Culture Night is an annual event hosted by UC Riverside&apos;s Katipunan
+        PSO to celebrate our community. From traditional to modern Pilipino dance, to a production
+        highlighting the Pilipino American experience, this production beautifully showcases our
+        Kababayan.
       </p>
 
       <section className="section-block">
@@ -49,40 +55,41 @@ export default function About(){
             <h4>Purchase tickets today!</h4>
             <p>
               <a
-                href="https://tulay-web-app.vercel.app/event/bc2cda18-174c-4756-891d-1387ea6803b0/tickets"
+                href="https://www.tulayticketing.com/event/bc2cda18-174c-4756-891d-1387ea6803b0"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                https://tulay-web-app.vercel.app/event/bc2cda18-174c-4756-891d-1387ea6803b0/tickets
+                https://www.tulayticketing.com/event/bc2cda18-174c-4756-891d-1387ea6803b0
               </a>
             </p>
           </article>
         </div>
         <div className="synopsis-panel">
           <p>
-            <span className="synopsis-word">Someday</span> is a heartfelt story about love, family,
-            and the invisible threads that connect our lives. Set between church pews, classrooms,
-            apartments, and quiet moments of reflection, the story follows Magnolia, a brilliant
-            young college student trying to find her path while carrying the weight of grief after
-            losing her mother. As she navigates school, friendships, and a growing romance with
-            Gabriel, Magnolia learns how love can both heal and complicate the relationships closest
-            to her.
+            <span className="synopsis-word">Someday</span> is a heartfelt production that follows a
+            Filipino immigrant father and his college-aged daughter as they navigate love, grief,
+            and the quiet sacrifices that shape a family.
           </p>
           <p>
-            At the same time, her father Crisanto, an immigrant who sacrificed everything to build a
-            better life for his family, struggles with loneliness, uncertainty, and the fragile hope
-            of securing his future in the country he now calls home. His story reveals the quiet
-            resilience of a parent determined to protect the people he loves.
+            Magnolia, a passionate pre-med UCR student, is discovering love while still carrying
+            the weight of her mother&apos;s passing and supporting her father in his pursuit of his
+            citizenship. Across the way in the Bay Area, her loving father Crisanto works
+            tirelessly to build stability for their future, haunted by loneliness, missing his wife
+            and daughter, and the uncertainty of his immigration status.
           </p>
           <p>
-            Through music, humor, and emotional moments, Someday explores what it means to hold on to
-            the past while moving toward the future. It is a story about grief, friendship, identity,
-            and the courage to keep loving even when life changes in ways we never expected. In the
-            end, the characters must confront the truth that every relationship leaves a mark, and
-            that the people who shape us remain part of who we are forever.
+            As new relationships bloom and old wounds resurface, the characters are forced to
+            confront before it&apos;s too late.
+          </p>
+          <p>
+            <em>
+              DISCLAIMER: Someday touches themes of immigration, family grief, and
+              intergenerational conflict.
+            </em>
           </p>
         </div>
       </section>
     </div>
   )
 }
+

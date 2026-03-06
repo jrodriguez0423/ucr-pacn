@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const TICKET_URL = 'https://tulay-web-app.vercel.app/event/bc2cda18-174c-4756-891d-1387ea6803b0'
+const TICKET_URL = 'https://www.tulayticketing.com/event/bc2cda18-174c-4756-891d-1387ea6803b0'
 
 export default function Header(){
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   function closeMenu() {
     setIsMenuOpen(false)
+  }
+
+  function handleNavClick() {
+    closeMenu()
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    })
   }
 
   return (
@@ -29,12 +37,13 @@ export default function Header(){
           <span />
         </button>
         <nav id="site-nav" className={isMenuOpen ? 'nav-open' : ''}>
-          <Link to="/" onClick={closeMenu}>Home</Link>
-          <Link to="/about" onClick={closeMenu}>About</Link>
-          <Link to="/board" onClick={closeMenu}>Board</Link>
-          <a href={TICKET_URL} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>Tickets</a>
+          <Link to="/" onClick={handleNavClick}>Home</Link>
+          <Link to="/about" onClick={handleNavClick}>About</Link>
+          <Link to="/board" onClick={handleNavClick}>Board</Link>
+          <a href={TICKET_URL} target="_blank" rel="noopener noreferrer" onClick={handleNavClick}>Tickets</a>
         </nav>
       </div>
     </header>
   )
 }
+
