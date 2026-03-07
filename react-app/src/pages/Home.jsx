@@ -16,7 +16,7 @@ const galleryImages = [
 
 const castMembers = [
   ['Magnolia "Lia" Espinosa', 'Allyson Mendoza'],
-  ['Crisanto Espinosa', 'Gaven Manela'],
+  ['Crisanto Espinosa', 'Gavin Manela'],
   ['Gabriel Bernardo', 'Jacob Adriano'],
   ['Roselle "Ro" de la Cruz', 'Hazel Jose'],
   ['Eden\n Gonzalez', 'Lovel\n Cruz'],
