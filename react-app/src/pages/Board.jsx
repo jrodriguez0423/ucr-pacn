@@ -259,6 +259,15 @@ const members = [
     albumExplanation: 'It was fun to recreate and dress around.'
   },
   {
+    id: 'sydney-eustaquio',
+    name: 'Sydney Eustaquio',
+    position: 'Modern Coach',
+    year: '4th',
+    major: 'Media and Cultural Studies',
+    pronouns: 'She/Her',
+    funFact: 'The original creator of the minions designed my tattoo for me'
+  },
+  {
     id: 'gaby-alejandro',
     name: 'Gaby Alejandro',
     position: 'Maria Clara Coach',
@@ -374,7 +383,7 @@ const groupedLeadership = [
   },
   {
     title: 'Dance Coaches',
-    ids: ['riley-robes', 'gaby-alejandro', 'carl-edpao', 'janae-batayola', 'nathan-leopoldo', 'karena-pascual', 'jason-tenazas']
+    ids: ['riley-robes', 'sydney-eustaquio', 'gaby-alejandro', 'carl-edpao', 'janae-batayola', 'nathan-leopoldo', 'karena-pascual', 'jason-tenazas']
   }
 ]
 

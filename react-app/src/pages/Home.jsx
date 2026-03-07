@@ -22,7 +22,7 @@ const castMembers = [
   ['Eden\n Gonzalez', 'Lovel\n Cruz'],
   ['Angel Bautista', 'Soren Hocke'],
   ['Father Bernie', 'Javen Sebastian'],
-  ['Irene Espoinosa', 'Faith Garcia'],
+  ['Irene\n Espinosa', 'Faith\n Garcia'],
 ]
 
 const pastPacns = [
