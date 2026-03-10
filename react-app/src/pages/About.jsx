@@ -1,35 +1,72 @@
 import React from 'react'
 
 export default function About(){
+  const danceSuites = [
+    {
+      name: 'Binasuan',
+      description:
+        'A traditional folk dance originating in Bayambang, Pangasinan. Binasuan meaning "with drinking glasses." The movements of this dance are smooth and graceful, as the dancers balance glasses of water during the piece and convey a light, festive and elegant mood.',
+    },
+    {
+      name: 'FMA',
+      description:
+        'Filipino Martial Arts incorporates various martial arts forms such as eskrima, arnis, and kali, which emphasize weapon-based fighting and empty-hand combat. Historically, Filipino Martial Arts practiced with tools that were easily accessible to common folk and concealable.',
+    },
+    {
+      name: 'Modern',
+      description:
+        'Modern focuses on the Filipino-American identity and experience, incorporating western dance styles, hip hop influence and music from Filipino and Fil-Am artists. There are four different suites: Project Rizzerside (Advanced), Kati Kuties (Feminine), PackN (Masculine), and Tito Status (Seniors).',
+    },
+    {
+      name: 'Sarung Banggi',
+      description:
+        'Sarung Banggi is a Bicolano love song which translates to "one evening/one night", showcasing themes of courtship, love, and longing. This piece is being performed under our Maria Clara suite, originating from the Bicol Region and Spanish Colonial period (16th-19th Century).',
+    },
+    {
+      name: 'Singkil',
+      description:
+        'Our newest suite to PACN, tells the story of a princess who gets caught in a storm and is guided through their escape, originating from the Maranao people. It is adapted from the epic "Darangen" and features a large ensemble cast.',
+    },
+    {
+      name: 'Tinikling',
+      description:
+        'Originating from Leyte, in the Visayas Region, dancers showcase their footwork as they navigate between opening and closing bamboo poles. This mimics the movement of Tikling birds stepping in and out of bamboo traps set by farmers.',
+    },
+  ]
+
   return (
     <div className="container about-page about-info-page">
-      <h1>About PACN</h1>
+      <h1>WHAT IS PACN?</h1>
       <p>
-        Pilipino-American Cultural Night (PACN) is one of the longest-standing and most anticipated
-        annual events hosted by UC Riverside&apos;s Katipunan Pilipino Student Organization (PSO).
-        PACN is a fully student-run theatrical production that brings together a dedicated board
-        and cast to create an original show celebrating Pilipinx culture, identity, and
-        storytelling.
+        Pilipino-American Cultural Night (PACN) is one of the most anticipated annual events hosted
+        by UC Riverside&apos;s Katipunan Pilipino Student Organization. PACN is a fully student-run
+        theatrical production that brings together our Kababayan to create an original show
+        celebrating Pilipinx culture, identity, and storytelling.
       </p>
       <p>
-        Through creative mediums such as dance, acting, and music, students explore and express
-        their Pilipinx identity while sharing meaningful narratives with the campus and surrounding
-        community. Months of collaboration go into writing, producing, and performing the
-        production, creating an experience that is both artistic and deeply personal for everyone
-        involved.
+        Through creative mediums such as dance, acting, and music, our cast explore and express our
+        identity while sharing meaningful narratives with the surrounding community. Months of
+        collaboration go into writing, producing, and breathing life into this production, creating
+        an experience that is both artistic and deeply personal for everyone involved.
       </p>
       <p>
         Beyond the stage, PACN serves as a space for participants to grow, build community, and
         connect with their heritage. At UC Riverside, the production also acts as a platform for
-        education and activism, highlighting Pilipinx history, culture, and the issues impacting
-        the community today.
+        education and activism, highlighting Pilipino-American history, culture, and the issues
+        impacting the community today.
       </p>
-      <p>
-        Pilipino American Culture Night is an annual event hosted by UC Riverside&apos;s Katipunan
-        PSO to celebrate our community. From traditional to modern Pilipino dance, to a production
-        highlighting the Pilipino American experience, this production beautifully showcases our
-        Kababayan.
-      </p>
+
+      <section className="section-block">
+        <h2>Learn about our PACN 37 dance suites:</h2>
+        <div className="dance-suite-grid">
+          {danceSuites.map((suite) => (
+            <article key={suite.name} className="dance-suite-card">
+              <h3>{suite.name}</h3>
+              <p>{suite.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="section-block">
         <h2>37th Annual Pilipino-American Cultural Night (PACN)</h2>
@@ -92,4 +129,3 @@ export default function About(){
     </div>
   )
 }
-
