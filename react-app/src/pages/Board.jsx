@@ -1,5 +1,7 @@
 import React from 'react'
 
+const BOARD_REVEAL_EMBED_URL = 'https://www.youtube.com/embed/ZzmJYxdTilU'
+
 function getInitials(name){
   return name
     .split(' ')
@@ -40,6 +42,7 @@ const photoById = {
   'rylie-nash': 'Rylie Nash.webp',
   'sofie-gange': 'Sofie Gange.webp',
   'sophia-avenido': 'Sophia Avenido.webp',
+  'sydney-eustaquio': 'Sydney Eustaquio.webp',
   'trisha-mae-rivera': 'Trisha Rivera.webp',
   'zion-abendano': 'Zion.webp'
 }
@@ -403,6 +406,26 @@ export default function Board(){
   return (
     <div className="container about-page">
       <h1>PACN 37 Board</h1>
+
+      <section className="section-block board-video-section">
+        <div className="section-heading">
+          <p className="eyebrow">Board Reveal</p>
+          <h2>PACN 37 Board Reveal</h2>
+        </div>
+
+        <article className="video-card board-video-card">
+          <div className="video-frame">
+            <iframe
+              src={BOARD_REVEAL_EMBED_URL}
+              title="PACN 37 Board Reveal"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        </article>
+      </section>
 
       <section className="section-block">
         {groupedLeadership.map((group) => (

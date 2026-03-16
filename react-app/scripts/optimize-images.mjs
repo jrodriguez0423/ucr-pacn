@@ -47,6 +47,7 @@ const boardImages = [
   'Rylie Nash.jpg',
   'Sofie Gange.jpg',
   'Sophia Avenido.jpg',
+  'Sydney Eustaquio.JPG',
   'Trisha Rivera.JPG',
   'Zion.jpg',
 ]

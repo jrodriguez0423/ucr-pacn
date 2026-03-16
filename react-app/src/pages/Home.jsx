@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 const TICKET_URL = 'https://www.tulayticketing.com/event/bc2cda18-174c-4756-891d-1387ea6803b0'
+const TRAILER_VIDEO_URL = '/images/PACN%2037%20Someday%20Trailer.mp4'
 
 const galleryImages = [
   '/carousel-optimized/DSC06969.webp',
@@ -160,6 +161,25 @@ export default function Home() {
         <img src="/images/pacn%20logo.jpg" alt="PACN logo" className="pacn-logo-image" />
       </section>
 
+      <section className="container section-block trailer-section">
+        <div className="section-heading">
+          <p className="eyebrow">PACN 37 Trailer</p>
+          <h2>Someday Starts Today</h2>
+        </div>
+
+        <article className="video-card trailer-card">
+          <div className="trailer-frame">
+            <video
+              src={TRAILER_VIDEO_URL}
+              title="PACN 37 Trailer: Someday Starts Today"
+              controls
+              playsInline
+              preload="metadata"
+            />
+          </div>
+        </article>
+      </section>
+
       <section className="container section-block gallery-section">
         <div className="section-heading">
           <p className="eyebrow">Photo Gallery</p>
@@ -285,4 +305,3 @@ export default function Home() {
     </div>
   )
 }
-
