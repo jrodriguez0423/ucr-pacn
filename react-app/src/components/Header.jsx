@@ -40,10 +40,10 @@ export default function Header(){
           <Link to="/" onClick={handleNavClick}>Home</Link>
           <Link to="/about" onClick={handleNavClick}>About</Link>
           <Link to="/board" onClick={handleNavClick}>Board</Link>
+          <Link to="/merch" onClick={handleNavClick}>Merch</Link>
           <a href={TICKET_URL} target="_blank" rel="noopener noreferrer" onClick={handleNavClick}>Tickets</a>
         </nav>
       </div>
     </header>
   )
 }
-
