@@ -58,6 +58,8 @@ export default function Merch() {
           <p className="merch-eyebrow">PACN Merch</p>
           <h1>UC Riverside PACN 37 Official Show Hoodie</h1>
           <p className="merch-description">
+            Color: Vintage Dark Brown
+            <br />
             Add one or more hoodie sizes, then continue directly to Shopify checkout with everything in a single cart.
           </p>
           <button
